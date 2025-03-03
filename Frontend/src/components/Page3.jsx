@@ -3,7 +3,7 @@ import image6 from '../assets/image6.png'; // Replace with your actual image
 
 const Page3 = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-32 py-16 bg-black text-white">
+    <div className="flex flex-col md:flex-row items-center justify-between px-16 md:px-32 py-16 bg-black text-white">
       
       {/* Left Side - Image shifted left */}
       <div className="w-full md:w-2/5 flex justify-start md:pr-12">

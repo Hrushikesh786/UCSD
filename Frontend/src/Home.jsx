@@ -3,6 +3,7 @@ import image1 from './assets/image1.avif'
 import Page2 from "./components/Page2"
 import Page3 from "./components/Page3"
 import Footer from "./components/Footer"
+import Navbar from "./components/Navbar"
 
 
 function App() {
@@ -17,9 +18,10 @@ function App() {
 
     //   {/* Content on top of the background */}
       <div className="relative z-10 bg-black p-5">
+        <Navbar></Navbar>
         <Page1 className="p-5"/>
         <Page2/>
-        <Page3/>
+        <Page3 className=""/>
         <Footer/>
       </div>
     // </div>
