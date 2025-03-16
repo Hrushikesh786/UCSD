@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { Toaster } from 'react-hot-toast';
 
 
-const Login = () => {
+const Login = ({setIsAuthenticated}) => {
   const navigate = useNavigate();
   const {
     register,
@@ -29,9 +29,10 @@ const Login = () => {
         toast.success("login Successfully")
         // alert("login successfull")
         localStorage.setItem("token", res.data.token);
+        setIsAuthenticated(true)
         document.getElementById("my_modal_3").close()
         // Navigate("/signup")
-        navigate("/dashboard");
+        navigate("/");
         window.location.reload()
       }
       

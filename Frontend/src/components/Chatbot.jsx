@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const Chatbot = () => {
+const Chatbot = ({ onClose }) => {
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Hello! How can I assist you with your finances today?" }
   ]);
@@ -18,7 +18,7 @@ const Chatbot = () => {
     if (lowerInput.includes("balance")) return "Your current balance is $12,500.";
     if (lowerInput.includes("income")) return "Your monthly income is $3,200.";
     if (lowerInput.includes("expense")) return "Your monthly expenses are $2,400.";
-    if (lowerInput.includes("save money")) return "Your can check our advices section";
+    if (lowerInput.includes("save money")) return "You can check our advices section.";
     return "I'm here to help! Try asking about 'balance', 'income', or 'expenses'.";
   };
 
@@ -34,17 +34,26 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 flex flex-col items-center">
+    <div className="fixed bottom-20 right-10 bg-gray-900 text-white rounded-xl shadow-lg w-[300px] h-[350px] flex flex-col border border-gray-700 overflow-hidden">
       
+      {/* Chatbot Header */}
+      <div className="flex items-center justify-between bg-teal-500 p-3 rounded-t-xl">
+        <h1 className="text-lg font-semibold">Chatbot</h1>
+        <button 
+          onClick={onClose} 
+          className="text-white text-lg font-bold focus:outline-none"
+        >
+          ✖
+        </button>
+      </div>
 
-      {/* Chatbox Container */}
-      <div className="w-full max-w-2xl bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col h-[500px] overflow-y-auto">
-      <h1 className="text-3xl font-bold text-center text-teal-300 mb-6">AI Chatbot</h1>
+      {/* Chatbox Messages */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-2">
         {messages.map((msg, index) => (
-          <div key={index} className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+          <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`p-3 rounded-lg max-w-xs ${
-                msg.sender === "user" ? "bg-teal-500 text-white" : "bg-gray-700 text-gray-200"
+              className={`p-2 rounded-lg max-w-[80%] ${
+                msg.sender === "user" ? "bg-teal-500 text-white" : "bg-gray-700 text-gray-300"
               }`}
             >
               {msg.text}
@@ -55,17 +64,17 @@ const Chatbot = () => {
       </div>
 
       {/* Input Field */}
-      <div className="w-full max-w-2xl flex mt-4">
+      <div className="flex border-t border-gray-700">
         <input
           type="text"
-          className="flex-1 p-3 bg-gray-700 text-white rounded-l-lg outline-none"
+          className="flex-1 p-2 bg-gray-800 text-white outline-none rounded-bl-xl"
           placeholder="Ask me anything..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
         <button
-          className="bg-teal-500 px-5 text-white rounded-r-lg hover:bg-teal-600 transition"
+          className="bg-teal-500 px-4 text-white rounded-br-xl hover:bg-teal-600 transition"
           onClick={sendMessage}
         >
           Send
