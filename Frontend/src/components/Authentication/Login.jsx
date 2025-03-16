@@ -1,11 +1,13 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { Toaster } from 'react-hot-toast';
 
+
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -18,22 +20,26 @@ const Login = () => {
       password: data.password,
     };
     await axios
-    .post("http://localhost:3500/user/login",userInfo)
+    .post("http://localhost:3500/user/login",userInfo,{
+      headers: { "Content-Type": "application/json" },
+    })
     .then((res)=>{
       console.log(res.data);
       if(res.data){
         toast.success("login Successfully")
         // alert("login successfull")
+        localStorage.setItem("token", res.data.token);
         document.getElementById("my_modal_3").close()
         // Navigate("/signup")
+        navigate("/dashboard");
         window.location.reload()
       }
-      localStorage.setItem("User",JSON.stringify(res.data.user))
+      
     })
     .catch((err) => {
       console.log(err);
-      alert("invalid credentials")
-      toast.error("Error in Login", +err);
+      // alert("invalid credentials")
+      toast.error("Error in Login");
     })
   };
 

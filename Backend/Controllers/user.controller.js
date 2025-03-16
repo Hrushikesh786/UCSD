@@ -1,6 +1,10 @@
 import User from "../Models/user.model.js";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
+const SECRET_KEY = process.env.JWT_SECRET || "yourSecretKey";
 export const signup = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
@@ -47,8 +51,11 @@ export const login = async (req,res) => {
         return res.status(401).json({ message: "Invalid Credentials" });
     }
     else{
+      const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "1h" });
+      console.log("token",token)
         return res.status(200).json({
             message: "Login Successfull",
+            token,
             user: {
               id: user._id,
               fullname: user.fullname,

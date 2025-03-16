@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.routes.js"
+import functionalRoute from "./routes/functional.routes.js"
 import cors from "cors";
 const app = express();
 
@@ -31,6 +32,7 @@ try {
 
 // routes
 app.use("/user",userRoute)
+app.use("/functional",functionalRoute)
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
