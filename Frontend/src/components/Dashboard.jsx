@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -10,7 +11,8 @@ const Dashboard = () => {
       const token = localStorage.getItem("token");
       if (!token) {
         console.log("No token found. Redirecting to login...");
-        navigate("/chatbot");
+        toast.error("Please login to access dashboard");
+        navigate("/");
         return;
       }
       try {
